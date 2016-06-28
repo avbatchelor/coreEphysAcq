@@ -17,7 +17,7 @@ function [fullFileName, path, trialNum, idString] = getDataFileName(exptInfo)
     cellNum     = exptInfo.cellNum;
     cellExpNum  = exptInfo.cellExpNum; 
     
-    microCzarSettings;   % Loads settings
+    ephysSettings;   % Loads settings
   
     % Make numbers strings
     eNum = num2str(expNum,'%03d');

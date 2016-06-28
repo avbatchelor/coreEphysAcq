@@ -1,4 +1,4 @@
-function settings = ephysSettings(stim)
+%% ephysSettings
 
 %% Parameters
 % Data folder 
@@ -8,7 +8,7 @@ dataDirectory = 'C:\Users\Alex\My Documents\Data\ephysData\';
 settings.devID = 'Dev1';
 
 % Samp Rate
-settings.sampRate.out   = stim.sampleRate;
+settings.sampRate.out   = 40E3;
 settings.sampRate.in    = 10E3;
 
 % Camera frame rate 
@@ -45,5 +45,5 @@ settings.pulse.Amp = 0.0394/2; % Made pulse a bit smaller
 settings.pulse.Dur = 1;
 settings.pulse.Start = 1*settings.sampRate.out + 1;
 settings.pulse.End = 2*settings.sampRate.out;
-settings.pulse.Command = zeros(size(stim.stimulus));
+
 

@@ -18,6 +18,11 @@ if ~exist('stim','var')
     stim = noStimulus; 
 end
 
+%% Create camera trigger
+extTrig = ones(size(stim.stimulus));
+extTrig(1:100) = 0;
+extTrig(length(extTrig)-100:end) = 0;
+
 %% Load settings    
 ephysSettings; 
      
@@ -32,7 +37,11 @@ switch pulseType
 end   
 
 settings.pulse.Command = zeros(size(stim.stimulus));
-settings.pulse.Command(settings.pulse.Start:settings.pulse.End) = settings.pulse.Amp;
+
+pulseStartInd = settings.pulse.Start*stim.sampleRate + 1;
+pulseEndInd = pulseStartInd + settings.pulse.Dur*stim.sampleRate;
+settings.pulse.Command = zeros(size(stim.stimulus));
+settings.pulse.Command(pulseStartInd:pulseEndInd) = settings.pulse.Amp;
 
 
 %% Configure daq
@@ -46,6 +55,9 @@ sOut.Rate = stim.sampleRate;
 % Analog Channels / names for documentation
 sOut.addAnalogOutputChannel(devID,0:1,'Voltage');
 sOut.Rate = stim.sampleRate;
+
+% Add digital output for cameral channel 
+sOut.addDigitalChannel('Dev1','port0/line3','OutputOnly');
 
 % Add trigger
 sOut.addTriggerConnection('External','Dev1/PFI3','StartTrigger');
@@ -65,7 +77,7 @@ end
 sIn.addTriggerConnection('Dev1/PFI1','External','StartTrigger');
 
 %% Run trials
-sOut.queueOutputData([stim.stimulus,settings.pulse.Command]);
+sOut.queueOutputData([stim.stimulus,settings.pulse.Command,extTrig]);
 sOut.startBackground; % Start the session that receives start trigger first
 rawData = sIn.startForeground;
 
@@ -81,6 +93,7 @@ data.voltage = settings.voltage.softGain .* rawData(:,settings.bob.voltCh+1);
 data.current = settings.current.softGain .* rawData(:,settings.bob.currCh+1);
 data.speakerCommand = rawData(:,settings.bob.speakerCommandCh+1);
 data.piezoSG = rawData(:,settings.bob.piezoSGReading+1);
+data.cameraFrameRecord = rawData(:,settings.bob.piezoSGReading+2);
 
 %% Process scaled data
 % Scaled output
@@ -89,6 +102,7 @@ switch trialMeta.mode
     case {'Track','V-Clamp'}
         trialMeta.scaledOutput.softGain = 1000/(trialMeta.scaledOutput.gain*settings.current.betaFront);
         data.scaledCurrent = trialMeta.scaledOutput.softGain .* rawData(:,settings.bob.scalCh+1);
+        
     % Current Clamp
     case {'I=0','I-Clamp Normal','I-Clamp Fast'}
         trialMeta.scaledOutput.softGain = 1000/(trialMeta.scaledOutput.gain);

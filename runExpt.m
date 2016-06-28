@@ -30,7 +30,7 @@ if ~isdir(videoPath)
     mkdir(videoPath);
 end
 disp(videoPath)
-input('Recording started? ','s');
+input('Camera recording started? ','s');
 
 %% Run pre-expt routines (measure pipette resistance etc.)
 contAns = input('Run preExptRoutine? ','s');

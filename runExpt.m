@@ -1,4 +1,24 @@
 function runExpt(prefixCode,expNum,stimSetNum)
+%RUNEXPT master function that runs the Ephy acquisition
+%
+% RUNEXPT('ExperimentName',expNUM,stimSetNum) runs an experiment with prefix
+% code 'ExperimentName' and experiment number expNUM that uses the stimlulus
+% specified by stimSetNum
+%
+% INPUTS
+% prefixCode
+% expNum
+% stimsetNum
+%
+% OUTPUTS ----
+% 
+% Example
+% runExpt('test',1,18)
+% This would runs an experiment with a prefix code 'test' 
+% and experiment number 1 which means the data is saved in a 
+% folder called ~\Data\ephysData\test\expNum001
+% The third input argument specifies the stim set number which in this 
+% case would be 18. 
 
 %% Get fly and experiment details from experimenter
 newFly = input('New fly? ','s');

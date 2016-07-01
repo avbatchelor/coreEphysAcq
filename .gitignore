@@ -1,3 +1,4 @@
+<<<<<<< b4f76dc0cdf653672e208b201bdf59ea9a5a44ee
 # Windows image file caches
 Thumbs.db
 ehthumbs.db
@@ -44,3 +45,7 @@ Temporary Items
 
 # Backup files 
 *.asv
+=======
+# ignore generated matlab files
+*.m~
+>>>>>>> added help comments for runExpt and a gitignore file to ignore .m~ files

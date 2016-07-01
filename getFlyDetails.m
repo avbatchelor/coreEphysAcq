@@ -1,4 +1,10 @@
 function FlyData = getFlyDetails(exptInfo,basename,varargin)
+%{
+GETFLYDETAILS Used in the case of a new fly to get information from the user about this
+fly/experimental parameters/particulars
+
+%}
+
 
 %% Ask user for input
 FlyData.line = input('Line: ','s');
@@ -23,7 +29,8 @@ flyNum      = exptInfo.flyNum;
 eNum = num2str(expNum,'%03d');
 fNum = num2str(flyNum,'%03d');
 
-dataDirectory = getpref('scimSavePrefs','dataDirectory');
+% calls ephysSettings to obtain the variable dataDirectory
+ephysSettings
 path = [dataDirectory,prefixCode,'\expNum',eNum,...
         '\flyNum',fNum];
 

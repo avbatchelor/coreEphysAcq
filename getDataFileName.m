@@ -1,4 +1,6 @@
-%%
+
+function [fullFileName, path, trialNum, idString] = getDataFileName(exptInfo)
+%GETDATAFILENAME
 %   [fullFileName, path] =  getDataFileName(prefixCode, expNum)
 %
 %   Returns the path and the path\fileName in which to store data. Format is:
@@ -8,8 +10,6 @@
 %       
 %
 %   JSB 3\22\2013
-%%
-function [fullFileName, path, trialNum, idString] = getDataFileName(exptInfo)
 
     prefixCode  = exptInfo.prefixCode;
     expNum      = exptInfo.expNum; 

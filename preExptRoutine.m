@@ -1,4 +1,11 @@
 function preExptData = preExptRoutine(exptInfo)
+%{
+PREEXPTROUTINE
+
+
+
+%}
+
 
 
 %% Measure pipette resistance 

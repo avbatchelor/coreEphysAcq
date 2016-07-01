@@ -7,6 +7,7 @@ daqreset;
 trialMeta.trialStartTime = datestr(now,'HH:MM:SS'); 
 
 %% Code stamp
+
 exptInfo.codeStamp      = getCodeStamp(1);
 
 %% Create stimulus if needed  

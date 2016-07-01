@@ -29,7 +29,7 @@ flyNum      = exptInfo.flyNum;
 eNum = num2str(expNum,'%03d');
 fNum = num2str(flyNum,'%03d');
 
-% calls ephysSettings to obtain the variable dataDirectory
+% calls ephysSettings to obtain the variable dataDirectory - yf
 ephysSettings
 path = [dataDirectory,prefixCode,'\expNum',eNum,...
         '\flyNum',fNum];

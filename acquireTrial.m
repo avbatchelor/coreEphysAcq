@@ -8,7 +8,8 @@ trialMeta.trialStartTime = datestr(now,'HH:MM:SS');
 
 %% Code stamp
 
-exptInfo.codeStamp      = getCodeStamp(1);
+% Saves a string with the short hash of the git repo housing the called function.
+exptInfo.codeStamp      = getCodeStamp(1); %
 
 %% Create stimulus if needed  
 if ~exist('pulseType','var')  
@@ -16,6 +17,9 @@ if ~exist('pulseType','var')
 end
 
 if ~exist('stim','var')
+    % noStimulus is a stim subclass that inherets from the superclass AuditoryStimulus
+    % both AuditoryStimulus.m and noStimulus.m need to be on your path for
+    % this code to work.
     stim = noStimulus; 
 end
 

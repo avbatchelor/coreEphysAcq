@@ -8,7 +8,8 @@ function runExpt(prefixCode,expNum,stimSetNum)
 % INPUTS
 % prefixCode
 % expNum
-% stimsetNum
+% stimsetNum - number of the stimSet function you want to be run during this
+% experiment
 %
 % OUTPUTS ----
 % 
@@ -40,6 +41,7 @@ exptInfo.stimSetNum     = stimSetNum;
 
 %% Get fly details 
 if strcmp(newFly,'y')
+    %get details about this fly and save then in the data directory
     getFlyDetails(exptInfo)
 end
 
@@ -69,6 +71,7 @@ end
 contAns = input('Would you like to start the experiment? ','s');
 if strcmp(contAns,'y')
     fprintf('**** Running Experiment ****\n')
+    %calls stimSet function specified by the input stimSetNum
     eval(['stimSet_',num2str(stimSetNum,'%03d'),...
         '(','exptInfo,','preExptData',')'])
 end

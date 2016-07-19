@@ -84,10 +84,16 @@ rawData = sIn.startForeground;
 % Process
 data.voltage = settings.voltage.softGain .* rawData(:,settings.bob.voltCh+1);
 data.current = settings.current.softGain .* rawData(:,settings.bob.currCh+1);
-data.speakerCommand = rawData(:,settings.bob.speakerCommandCh+1);
-data.piezoSG = rawData(:,settings.bob.piezoSGReading+1);
+
+% Yvette: Commented this out since I didn't have all the channels called and it
+% breaks
+ data.speakerCommand = rawData(:,settings.bob.speakerCommandCh+1);
+ data.piezoSG = rawData(:,settings.bob.piezoSGReading+1);
 
 %% Process scaled data
+
+% Yvette: Commented this section out since I didn't have all the channels called and it
+% breaks
 % Scaled output
 switch trialMeta.mode
     % Voltage Clamp
@@ -100,6 +106,7 @@ switch trialMeta.mode
         data.scaledVoltage = trialMeta.scaledOutput.softGain .* rawData(:,settings.bob.scalCh+1);
         
 end
+%}
 
 %% Measure Access Resistance 
 if pulseType == 'i'
@@ -133,6 +140,8 @@ sOut.stop;
 sIn.stop;
 
 %% Plot data
+% Yvette: Commented this out since I didn't have all the channels called and it
+% breaks
 plotData(stim,settings,data)
 
 

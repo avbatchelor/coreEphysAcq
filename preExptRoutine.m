@@ -1,12 +1,34 @@
 function preExptData = preExptRoutine(exptInfo)
 %{
-PREEXPTROUTINE
+PREEXPTROUTINE measures pipette resistance, seal resistance, access
+resistance and resting voltage
 
+Designed so that important parameters can be measured 
+as the early part of patching progresses: from electrode in the bath (pipette R),
+to seal (seal R) to whole cell recording (access R...) in v-clamp and finally with a measurement
+of the resting voltage (Vm) upon the switch in I=0 prior to switching to I-clamp
 
+INPUT
+exptInfo  (struct)
+
+OUTPUT
+preExptData
+fields:
+.pipetteResistance
+.sealResistance
+.initialHoldingCurrent
+.initialAccessResistance
+.initialMembraneResistance
+.initialInputResistance
+.initialRestingVoltage
+
+SUBFUNCTIONS CALLED:
+measurePipetteResistance - used to measure pipette and seal R
+measureAccessResistance  - used to measure Access, membrane and Input R.
+acquireTrial -used to measure resting membrane voltage (run in I=0) and
+saved
 
 %}
-
-
 
 %% Measure pipette resistance 
 contAns = input('Would you like to measure pipette resistance? ','s');
@@ -42,7 +64,7 @@ if strcmp(contAns,'y')
     [data,~,~,trialMeta,~] = acquireTrial;
     preExptData.initialRestingVoltage = mean(data.voltage); 
     fprintf(['\nResting Voltage = ',num2str(preExptData.initialRestingVoltage),' mV\n\n'])
-    % Save trial 
+    % Save zeroCurrentTrial trial 
     [~, path, ~, idString] = getDataFileName(exptInfo);
     filename = [path,'\preExptTrials\',idString,'zeroCurrentTrial'];  
     save(filename,'data','exptInfo','trialMeta'); 

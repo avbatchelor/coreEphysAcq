@@ -1,10 +1,26 @@
 function FlyData = getFlyDetails(exptInfo,basename,varargin)
 %{
 GETFLYDETAILS Used in the case of a new fly to get information from the user about this
-fly/experimental parameters/particulars
+fly/experimental parameters/particulars of the dissection
 
+INPUT
+exptInfo
+basename
+-prompts user for additional information
+
+
+OUTPUT
+
+FlyData (struct)
+.line (genotype/Gal4/effector...)
+.freenessLeft
+.freenessRight
+.notesOnDissection
+.prepType
+.eclosionDate
+
+All of these subfields are obtained from the user and saved
 %}
-
 
 %% Ask user for input
 FlyData.line = input('Line: ','s');
@@ -13,7 +29,7 @@ FlyData.freenessRight = input('Freeness of right antenna: ','s');
 FlyData.notesOnDissection = input('Notes on dissection: ','s');
 FlyData.prepType = input('Prep type: ','s');
 
-% Get eclosion date
+% Get eclosion date using GUI calendar
 h = uicontrol('Style', 'pushbutton', 'Position', [20 150 100 70]);
 uicalendar('DestinationUI', {h, 'String'});
 waitfor(h,'String'); 
